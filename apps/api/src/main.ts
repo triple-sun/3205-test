@@ -1,21 +1,46 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
+import 'reflect-metadata';
+import { Container } from 'inversify';
 
-import express from 'express';
-import * as path from 'path';
+import App from './app/app';
+import LoggerService from './common/logger/logger.service';
+import ConfigService from './common/config/config.service';
+import ExceptionFilter from './common/exception-filter/exception-filter';
+import UserService from './modules/user/user.service';
+import UserController from './modules/user/user.controller';
 
-const app = express();
+import { LoggerInterface } from './common/logger/logger.interface';
+import { ConfigInterface } from './common/config/config.interface';
 
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
+import { UserServiceInterface } from './modules/user/user-service.interface';
+import { ControllerInterface } from './common/controller/controller.interface';
+import { ExceptionFilterInterface } from './common/exception-filter/exception-filter.interface';
+import { Component } from '@3205-test/common';
 
-app.get('/api', (req, res) => {
-  res.send({ message: 'Welcome to api!' });
-});
+const appContainer = new Container();
 
-const port = process.env.PORT || 3333;
-const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}/api`);
-});
-server.on('error', console.error);
+appContainer.bind<App>(Component.App).to(App).inSingletonScope();
+
+appContainer
+  .bind<LoggerInterface>(Component.LoggerInterface)
+  .to(LoggerService)
+  .inSingletonScope();
+appContainer
+  .bind<ConfigInterface>(Component.ConfigInterface)
+  .to(ConfigService)
+  .inSingletonScope();
+appContainer
+  .bind<ExceptionFilterInterface>(Component.ExceptionFilterInterface)
+  .to(ExceptionFilter)
+  .inSingletonScope();
+
+appContainer
+  .bind<UserServiceInterface>(Component.UserServiceInterface)
+  .to(UserService);
+appContainer
+  .bind<ControllerInterface>(Component.UserController)
+  .to(UserController)
+  .inSingletonScope();
+
+const app = appContainer.get<App>(Component.App);
+
+await app.init();

@@ -1,0 +1,8 @@
+# Тестовые данные
+GET http://localhost:4000/ HTTP/1.1
+
+###
+
+GET http://localhost:4000/users?email=test@test.com&number=123456 HTTP/1.1
+
+###

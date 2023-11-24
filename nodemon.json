@@ -1,0 +1,6 @@
+{
+  "watch": [
+    "src"
+  ],
+  "ext": "ts, json",
+  "exec": "tsx ./src/main.ts | pino-pretty --colorize --translateTime SYS:standard"}
