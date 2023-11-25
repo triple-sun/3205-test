@@ -8,7 +8,7 @@ import { useFormik } from 'formik';
 import { TFindUserDTO } from '@3205-test/common';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchIcon from '@mui/icons-material/Search'
-import TextMask from '../text-mask/text-mask';
+import TextMask from '../../utils/text-mask';
 import { validationSchema } from '../../const/const';
 
 type THandleFindUserSubmit = {

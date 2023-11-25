@@ -20,7 +20,7 @@ const TextMask = React.forwardRef<
         '#': /[1-9]/,
       }}
       inputRef={ref}
-      onAccept={(value: any) =>
+      onAccept={(value: string) =>
         onChange({ target: { name: props.name, value } })
       }
       overwrite

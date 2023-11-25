@@ -1,10 +1,10 @@
 import FindUserForm from '../../components/find-user-form/find-user-form';
 import useFoundUsers from '../../hooks/use-found-users';
 import { ThemeProvider } from '@emotion/react';
-import Theme from '../../components/theme/theme';
 import { Box, Container, CssBaseline } from '@mui/material';
 import FoundUsersTableComponent from '../../components/found-users/found-users-table';
-import Loading from '../../components/spinner/spinner';
+import Loading from '../../components/loading/loading';
+import Theme from '../../const/const';
 
 const MainPage = () => {
   const {
