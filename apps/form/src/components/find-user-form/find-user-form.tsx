@@ -93,6 +93,7 @@ export default function FindUserForm({
           variant="contained"
           type="submit"
           startIcon={<SearchIcon />}
+          disabled={!formik.isValid || !formik.dirty}
         >
           Find
         </Button>
@@ -102,7 +103,9 @@ export default function FindUserForm({
           variant="outlined"
           type="reset"
           startIcon={<DeleteIcon />}
-          onClick={handleFormReset}>
+          disabled={!formik.dirty}
+          onClick={handleFormReset}
+        >
           Clear
         </Button>
       </Box>
