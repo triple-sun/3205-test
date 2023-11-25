@@ -1,7 +1,7 @@
 import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { ValidationError } from 'class-validator';
 import { ValidationErrorField } from '../types/validation-error-field.type.js';
-import { ErrorType } from '../enums/logging.enum.js';
+import { ErrorType } from '../enums/logger.enum.js';
 
 export const getErrorMessage = (error: unknown): string =>
   error instanceof Error ? error.message : '';

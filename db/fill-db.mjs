@@ -26,7 +26,7 @@ const createMockUsers = (count) => {
     ...Array(parseInt(count))
   ];
 
-  return [...users.map(createMockUser), testUser];
+  return [...users.map(createMockUser), testUser, testUser];
 };
 
 const json = JSON.stringify(createMockUsers(MOCK_COUNT));

@@ -1,7 +1,7 @@
 export enum Doc {
   Host = 'Service host',
   Port = 'Port for incoming connections',
-  Throttle = 'Request execution delay',
+  Delay = 'Request execution delay',
   MockCount = 'Mock users count',
   DbPath = 'JSON db file path',
   TestEmail = 'Default test user email',
@@ -11,7 +11,7 @@ export enum Doc {
 export enum Env {
   Host = 'HOST',
   Port = 'PORT',
-  Throttle = 'THROTTLE_MS',
+  Delay = 'THROTTLE_MS',
   MockCount = 'MOCK_COUNT',
   DbPath = 'DB_PATH',
   TestEmail = 'TEST_EMAIL',
@@ -21,7 +21,7 @@ export enum Env {
 export enum Format {
   Port = 'port',
   IP = 'ipaddress',
-  Throttle = 'int',
+  Delay = 'int',
   MockCount = 'int',
   DbPath = 'String',
   TestEmail = 'email',

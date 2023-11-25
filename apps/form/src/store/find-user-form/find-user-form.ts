@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const/enums';
-import { fetchFindUserDataAction } from './find-user-form.api.actions';
+import { resetFindUserDataAction, fetchFindUserDataAction } from './find-user-form.api.actions';
 import { TMainPageState } from '../../types/state.type';
 
 const mainPageInitialState: TMainPageState = {
-  foundUsers: null,
+  foundUsers: [],
   isLoaded: false
 };
 
@@ -20,6 +20,13 @@ export const findUserForm = createSlice({
       .addCase(fetchFindUserDataAction.fulfilled, (state, action) => {
         state.foundUsers = action.payload;
         state.isLoaded = true;
+      })
+      .addCase(resetFindUserDataAction.pending, (state) => {
+        state.isLoaded = false;
+      })
+      .addCase(resetFindUserDataAction.fulfilled, (state) => {
+        state.isLoaded = true;
+        state.foundUsers = []
       });
   },
 });

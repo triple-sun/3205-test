@@ -3,19 +3,19 @@ import { injectable } from 'inversify';
 import { Response, Router } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
-import { LoggerInterface } from '../logger/logger.interface';
-import { ControllerInterface } from './controller.interface';
-import { ConfigInterface } from '../config/config.interface';
+import { IController } from './controller.interface';
 import { InfoMessage, RouteInterface } from '@3205-test/common';
+import { ILogger } from '../logger/logger.interface';
+import { IConfig } from '../config/config.interface';
 
 
 @injectable()
-export abstract class Controller implements ControllerInterface {
+export abstract class Controller implements IController {
   private readonly _router: Router;
 
   constructor(
-    protected readonly logger: LoggerInterface,
-    protected readonly configService: ConfigInterface
+    protected readonly logger: ILogger,
+    protected readonly configService: IConfig
   ) {
     this._router = Router();
   }
@@ -26,41 +26,30 @@ export abstract class Controller implements ControllerInterface {
 
   public addRoute(route: RouteInterface) {
     const routeHandler = expressAsyncHandler(route.handler.bind(this));
-    const middlewares = route.middlewares?.map(
-      (middleware) => expressAsyncHandler(middleware.execute.bind(middleware))
+    const middlewares = route.middlewares?.map((middleware) =>
+      expressAsyncHandler(middleware.execute.bind(middleware))
     );
 
-    const allHandlers = middlewares ? [...middlewares, routeHandler] : routeHandler;
+    const allHandlers = middlewares
+      ? [...middlewares, routeHandler]
+      : routeHandler;
 
     this._router[route.method](route.path, allHandlers);
 
-    this.logger.info(`${InfoMessage.Route} ${route.method.toUpperCase()} ${route.path}`);
+    this.logger.info(
+      `${InfoMessage.Route} ${route.method.toUpperCase()} ${route.path}`
+    );
   }
 
   public send<T>(res: Response, statusCode: number, data?: T): void {
-    res
-      .type('application/json')
-      .status(statusCode)
-      .json(data);
+    res.type('application/json').status(statusCode).json(data);
   }
 
-  public created<T>(res: Response, data: T): void {
-    this.send(res, StatusCodes.CREATED, data);
-  }
-
-  public exists<T>(res: Response, data: T): void {
-    this.send(res, StatusCodes.CONFLICT, data);
-  }
-
-  public noContent<T>(res: Response, data: T): void {
-    this.send(res, StatusCodes.NO_CONTENT, data);
+  public notFound<T>(res: Response, data: T): void {
+    this.send(res, StatusCodes.NOT_FOUND, data);
   }
 
   public ok<T>(res: Response, data: T): void {
     this.send(res, StatusCodes.OK, data);
-  }
-
-  public deleted(res: Response): void {
-    this.send(res, StatusCodes.OK);
   }
 }

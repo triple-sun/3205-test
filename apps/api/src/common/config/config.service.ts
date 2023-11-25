@@ -1,18 +1,17 @@
 import { config } from 'dotenv';
 import { inject, injectable} from 'inversify';
 
-import { LoggerInterface } from '../logger/logger.interface';
-import { ConfigInterface } from './config.interface';
+import { ILogger } from '../logger/logger.interface';
+import { IConfig } from './config.interface';
 import { configSchema, TConfigSchema } from './config.schema';
 import { Component, ErrorMessage, InfoMessage } from '@3205-test/common';
 
 @injectable()
-
-export default class ConfigService implements ConfigInterface {
+export default class ConfigService implements IConfig {
   private config: TConfigSchema;
-  private logger: LoggerInterface;
+  private logger: ILogger;
 
-  constructor(@inject(Component.LoggerInterface) logger: LoggerInterface) {
+  constructor(@inject(Component.LoggerInterface) logger: ILogger) {
     this.logger = logger;
 
     const parsedOutput = config();

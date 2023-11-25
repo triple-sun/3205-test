@@ -19,7 +19,7 @@ convict.addFormats(validator);
 export type TConfigSchema = {
   HOST: string;
   PORT: number;
-  THROTTLE_MS: number;
+  DELAY_MS: number;
   MOCK_COUNT: number;
   DB_PATH: string;
   TEST_EMAIL: string;
@@ -39,10 +39,10 @@ export const configSchema = convict<TConfigSchema>({
     env: Env.Port,
     default: CONFIG_PORT_DEFAULT,
   },
-  THROTTLE_MS: {
-    doc: Doc.Throttle,
-    format: Format.Throttle,
-    env: Env.Throttle,
+  DELAY_MS: {
+    doc: Doc.Delay,
+    format: Format.Delay,
+    env: Env.Delay,
     default: THROTTLE_MS_DEFAULT,
   },
   MOCK_COUNT: {

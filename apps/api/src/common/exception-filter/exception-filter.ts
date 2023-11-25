@@ -4,14 +4,14 @@ import { StatusCodes } from 'http-status-codes';
 
 import HttpError from '../errors/http-error';
 import ValidationError from '../errors/validation-error';
-import { ExceptionFilterInterface } from './exception-filter.interface';
-import { LoggerInterface } from '../logger/logger.interface';
+import { IExceptionFilter } from './exception-filter.interface';
+import { ILogger } from '../logger/logger.interface';
 import { ErrorMessage, InfoMessage, ErrorType, Component, createErrorObject } from '@3205-test/common';
 
 @injectable()
-export default class ExceptionFilter implements ExceptionFilterInterface {
+export default class ExceptionFilter implements IExceptionFilter {
   constructor(
-    @inject(Component.LoggerInterface) private logger: LoggerInterface
+    @inject(Component.LoggerInterface) private logger: ILogger
   ) {
     this.logger.info(InfoMessage.Filter);
   }

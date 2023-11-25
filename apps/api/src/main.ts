@@ -8,12 +8,12 @@ import ExceptionFilter from './common/exception-filter/exception-filter';
 import UserService from './modules/user/user.service';
 import UserController from './modules/user/user.controller';
 
-import { LoggerInterface } from './common/logger/logger.interface';
-import { ConfigInterface } from './common/config/config.interface';
+import { ILogger } from './common/logger/logger.interface';
+import { IConfig } from './common/config/config.interface';
 
-import { UserServiceInterface } from './modules/user/user-service.interface';
-import { ControllerInterface } from './common/controller/controller.interface';
-import { ExceptionFilterInterface } from './common/exception-filter/exception-filter.interface';
+import { IUserService } from './modules/user/user-service.interface';
+import { IController } from './common/controller/controller.interface';
+import { IExceptionFilter } from './common/exception-filter/exception-filter.interface';
 import { Component } from '@3205-test/common';
 
 const appContainer = new Container();
@@ -21,23 +21,23 @@ const appContainer = new Container();
 appContainer.bind<App>(Component.App).to(App).inSingletonScope();
 
 appContainer
-  .bind<LoggerInterface>(Component.LoggerInterface)
+  .bind<ILogger>(Component.LoggerInterface)
   .to(LoggerService)
   .inSingletonScope();
 appContainer
-  .bind<ConfigInterface>(Component.ConfigInterface)
+  .bind<IConfig>(Component.ConfigInterface)
   .to(ConfigService)
   .inSingletonScope();
 appContainer
-  .bind<ExceptionFilterInterface>(Component.ExceptionFilterInterface)
+  .bind<IExceptionFilter>(Component.ExceptionFilterInterface)
   .to(ExceptionFilter)
   .inSingletonScope();
 
 appContainer
-  .bind<UserServiceInterface>(Component.UserServiceInterface)
+  .bind<IUserService>(Component.UserServiceInterface)
   .to(UserService);
 appContainer
-  .bind<ControllerInterface>(Component.UserController)
+  .bind<IController>(Component.UserController)
   .to(UserController)
   .inSingletonScope();
 

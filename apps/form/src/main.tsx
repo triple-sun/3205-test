@@ -1,4 +1,5 @@
 import * as ReactDOM from 'react-dom/client';
+import 'dotenv/config';
 
 import App from './app/app';
 import { BrowserRouter } from 'react-router-dom';

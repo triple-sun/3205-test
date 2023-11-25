@@ -22,7 +22,7 @@ export class ValidateDTOMiddleware implements MiddlewareInterface {
         transformErrors(errors)
       );
     }
-
+    
     next();
   }
 }

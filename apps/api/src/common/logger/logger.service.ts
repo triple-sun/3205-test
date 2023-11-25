@@ -1,11 +1,11 @@
 import pino, { Logger } from 'pino';
 import { injectable } from 'inversify';
 
-import { LoggerInterface } from './logger.interface';
+import { ILogger } from './logger.interface';
 import { InfoMessage } from '@3205-test/common';
 
 @injectable()
-export default class LoggerService implements LoggerInterface {
+export default class LoggerService implements ILogger {
   private logger!: Logger;
 
   constructor() {

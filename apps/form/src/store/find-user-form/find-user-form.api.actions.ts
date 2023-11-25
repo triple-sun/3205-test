@@ -21,3 +21,19 @@ export const fetchFindUserDataAction = createAsyncThunk<
   const { data: users } = await api.get<TUser[]>(`${APIRoute.Users}?email=${email}${number ? `&number=${number}` : ''}`);
   return users;
 });
+
+export const resetFindUserDataAction = createAsyncThunk<
+  unknown,
+  void,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  Action.ResetFindUserFormData,
+  async (_arg, { dispatch, extra: api }) => {
+    return;
+  }
+);
+

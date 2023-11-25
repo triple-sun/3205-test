@@ -1,7 +1,6 @@
 import { ValidationErrorField } from '@3205-test/common';
 import { StatusCodes } from 'http-status-codes';
 
-
 export default class ValidationError extends Error {
   public httpStatusCode!: number;
   public details: ValidationErrorField[] = [];

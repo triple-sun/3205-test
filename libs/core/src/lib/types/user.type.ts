@@ -3,6 +3,7 @@ export type TUser = {
   email: string;
 };
 
-export type TFindUserDTO = Partial<TUser> & {
-  number?: string;
+export type TFindUserDTO = {
+  email: string;
+  number?: string
 }

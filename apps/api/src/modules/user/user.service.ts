@@ -1,16 +1,18 @@
 import { inject, injectable } from 'inversify';
-import { UserServiceInterface } from './user-service.interface';
+import { IUserService } from './user-service.interface';
 import { Config, JsonDB } from 'node-json-db';
 import FindUserDTO from './dto/find-user.dto';
-import { ConfigInterface } from '../../common/config/config.interface';
 import { Component, Env, TUser } from '@3205-test/common';
+import { IConfig } from '../../common/config/config.interface';
+import { ILogger } from '../../common/logger/logger.interface';
 
 @injectable()
-export default class UserService implements UserServiceInterface {
+export default class UserService implements IUserService {
   private db: JsonDB;
 
   constructor(
-    @inject(Component.ConfigInterface) private config: ConfigInterface
+    @inject(Component.LoggerInterface) private logger: ILogger,
+    @inject(Component.ConfigInterface) private config: IConfig
   ) {
     this.db = new JsonDB(
       new Config(this.config.get(Env.DbPath), true, false, '/')
@@ -18,22 +20,17 @@ export default class UserService implements UserServiceInterface {
   }
 
   public async index(): Promise<TUser[]> {
-    return await this.db.getData('/')
+    return await this.db.getData('/');
   }
 
-  public async find({
-    email,
-    number,
-  }: FindUserDTO): Promise<TUser[] | undefined> {
-    if (number) {
-      return await this.db.filter<TUser>(
-        '/',
-        (user) => {
-          return user.email === email && user.number === parseInt(number)
-        }
-      );
-    }
+  public async find({ email, number }: FindUserDTO): Promise<TUser[]> {
+    const found = number
+      ? await this.db.filter<TUser>(
+          '/',
+          (user) => user.email === email && user.number === parseInt(number)
+        )
+      : await this.db.filter<TUser>('/', (user) => user.email === email);
 
-    return await this.db.filter<TUser>('/', (user) => user.email === email);
+    return found
   }
 }

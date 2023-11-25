@@ -10,6 +10,7 @@ export enum NameSpace {
 
 export enum Action {
   FetchFindUserFormData = 'data/fetchFindUserFormData',
+  ResetFindUserFormData = 'data/clearFindUserForm',
   RedirectToRoute = 'app/redirectToRoute'
 }
 
