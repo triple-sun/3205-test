@@ -6,8 +6,6 @@ import 'dotenv/config'
 const API_URL = process.env.NX_BACKEND_URL
 const REQ_TIMEOUT = process.env.NX_REQ_TIMEOUT;
 
-console.log(process.env)
-
 const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
   [StatusCodes.UNAUTHORIZED]: true,
@@ -29,8 +27,6 @@ export const createAPI = (): AxiosInstance => {
   const api = axios.create({
     baseURL: API_URL,
     timeout: parseInt(REQ_TIMEOUT)});
-
-    console.log(API_URL)
 
   api.interceptors.response.use(
     (response) => response,
