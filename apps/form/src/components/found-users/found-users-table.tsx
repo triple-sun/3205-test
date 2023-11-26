@@ -18,15 +18,21 @@ const FoundUsersTableComponent = ({ users }: { users: TUser[] }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user) => (
+            {users.map((user, index) => (
               <TableRow
-                key={user.email}
+                key={`row-${user.email} + ${index}`}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
+                <TableCell
+                  component="th"
+                  scope="row"
+                  key={`cell-${user.email} + ${index}`}
+                >
                   {user.email}
                 </TableCell>
-                <TableCell align="right">{user.number}</TableCell>
+                <TableCell align="right" key={`cell-${user.number} + ${index}`}>
+                  {user.number}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
